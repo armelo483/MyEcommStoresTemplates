@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoriesRepository;
+use App\Repository\RayonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategoriesRepository::class)]
-class Categories
+#[ORM\Entity(repositoryClass: RayonRepository::class)]
+class Rayon
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,16 +21,12 @@ class Categories
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories')]
-    private Collection $products;
-
-    #[ORM\ManyToOne(inversedBy: 'categories')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Rayon $rayon = null;
+    #[ORM\OneToMany(mappedBy: 'rayon', targetEntity: Categories::class, orphanRemoval: true)]
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,37 +59,31 @@ class Categories
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, Categories>
      */
-    public function getProducts(): Collection
+    public function getCategories(): Collection
     {
-        return $this->products;
+        return $this->categories;
     }
 
-    public function addProduct(Product $product): self
+    public function addCategory(Categories $category): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->setRayon($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeCategory(Categories $category): self
     {
-        $this->products->removeElement($product);
-
-        return $this;
-    }
-
-    public function getRayon(): ?Rayon
-    {
-        return $this->rayon;
-    }
-
-    public function setRayon(?Rayon $rayon): self
-    {
-        $this->rayon = $rayon;
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getRayon() === $this) {
+                $category->setRayon(null);
+            }
+        }
 
         return $this;
     }
