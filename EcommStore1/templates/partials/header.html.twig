@@ -55,11 +55,16 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
+                        {%  if is_granted('ROLE_ADMIN') %}
+                            <li class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <a  class="nav-link" href="{{ path('admin') }}">Admin</a>
+                            </li>
+                        {% endif %}
                         <li class="dropdown">
-                            <a  class="nav-link" href="#">Home</a>
+                            <a class="nav-link"  href="#">Home</a>
                         </li>
                         <li class="dropdown">
-                            <a class=" nav-link" href="#" data-toggle="dropdown">Pages</a>
+                            <a class="nav-link" href="#" data-toggle="dropdown">Pages</a>
                         </li>
                         <li class="">
                             <a class=" nav-link" href="#" data-toggle="dropdown">Products</a>
