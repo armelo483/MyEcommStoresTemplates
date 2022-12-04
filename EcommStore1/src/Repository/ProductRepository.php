@@ -39,6 +39,25 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByIsSpecialOffer(): array
+    {
+        return $this->findBy(['isSpecialOffer' => true]);
+    }
+    public function findByIsBestSeller(): array
+    {
+        return $this->findBy(['isBestSeller' => true]);
+    }
+
+    public function findByIsNewArrival(): array
+    {
+        return $this->findBy(['isNewArrival' => true]);
+    }
+
+    public function findByIsFeatured(): array
+    {
+        return $this->findBy(['isFeatured' => true]);
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

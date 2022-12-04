@@ -37,6 +37,21 @@ class Product
     #[ORM\ManyToMany(targetEntity: Categories::class, mappedBy: 'products')]
     private Collection $categories;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isNewArrival = false;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isFeatured = false;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isSpecialOffer = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $featuredImage = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isBestSeller = null;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -196,6 +211,78 @@ class Product
         if ($this->categories->removeElement($category)) {
             $category->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsNewArrival(): ?bool
+    {
+        return $this->isNewArrival;
+    }
+
+    /**
+     * @param bool|null $isNewArrival
+     */
+    public function setIsNewArrival(?bool $isNewArrival): void
+    {
+        $this->isNewArrival = $isNewArrival;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsFeatured(): ?bool
+    {
+        return $this->isFeatured;
+    }
+
+    /**
+     * @param bool|null $isFeatured
+     */
+    public function setIsFeatured(?bool $isFeatured): void
+    {
+        $this->isFeatured = $isFeatured;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsSpecialOffer(): ?bool
+    {
+        return $this->isSpecialOffer;
+    }
+
+    /**
+     * @param bool|null $isSpecialOffer
+     */
+    public function setIsSpecialOffer(?bool $isSpecialOffer): void
+    {
+        $this->isSpecialOffer = $isSpecialOffer;
+    }
+
+    public function getFeaturedImage(): ?string
+    {
+        return $this->featuredImage;
+    }
+
+    public function setFeaturedImage(?string $featuredImage): self
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    public function getIsBestSeller(): ?bool
+    {
+        return $this->isBestSeller;
+    }
+
+    public function setIsBestSeller(?bool $isBestSeller): self
+    {
+        $this->isBestSeller = $isBestSeller;
 
         return $this;
     }
