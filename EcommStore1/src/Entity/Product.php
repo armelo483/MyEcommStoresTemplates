@@ -34,7 +34,7 @@ class Product
     #[ORM\ManyToMany(targetEntity: Tags::class, mappedBy: 'products')]
     private Collection $tags;
 
-    #[ORM\ManyToMany(targetEntity: Categories::class, mappedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'products')]
     private Collection $categories;
 
     #[ORM\Column(nullable: true)]

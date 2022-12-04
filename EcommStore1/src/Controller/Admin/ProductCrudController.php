@@ -31,10 +31,11 @@ class ProductCrudController extends AbstractCrudController
             BooleanField::new('isFeatured'),
             BooleanField::new('isNewArrival'),
             BooleanField::new('isSpecialOffer'),
-            ImageField::new('featuredImage')->setBasePath('assets/uploads/products/')
-                                                        ->setUploadDir('public/assets/uploads/products/')
-                                                        ->setUploadedFileNamePattern('[randomhash].[extension]')
-                                                        ->setRequired(false)
+            ImageField::new('featuredImage')
+                ->setBasePath('assets/uploads/products/')
+                ->setUploadDir('public/assets/uploads/products/')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setRequired(false)
         ];
     }
 
