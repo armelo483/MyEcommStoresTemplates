@@ -74,6 +74,7 @@ class Categories
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
+            $product->setCategories($this);
         }
 
         return $this;

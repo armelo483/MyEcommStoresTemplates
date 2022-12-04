@@ -35,7 +35,7 @@ class Product
     private Collection $tags;
 
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'products')]
-    private Collection $categories;
+    private Categories $categories;
 
     #[ORM\Column(nullable: true)]
     private ?bool $isNewArrival = false;
@@ -57,7 +57,6 @@ class Product
         $this->reviews = new ArrayCollection();
         $this->orderDetails = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,31 +188,21 @@ class Product
     }
 
     /**
-     * @return Collection<int, Categories>
+     * @return Categories
      */
-    public function getCategories(): Collection
+    public function getCategories(): Categories
     {
         return $this->categories;
     }
 
-    public function addCategory(Categories $category): self
+    /**
+     * @param Categories $categories
+     */
+    public function setCategories(Categories $categories): void
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->addProduct($this);
-        }
-
-        return $this;
+        $this->categories = $categories;
     }
 
-    public function removeCategory(Categories $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeProduct($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return bool|null
@@ -286,4 +275,5 @@ class Product
 
         return $this;
     }
+
 }
