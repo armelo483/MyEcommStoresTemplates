@@ -52,6 +52,9 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?bool $isBestSeller = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $brand = null;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -272,6 +275,18 @@ class Product
     public function setIsBestSeller(?bool $isBestSeller): self
     {
         $this->isBestSeller = $isBestSeller;
+
+        return $this;
+    }
+
+    public function getBrand(): ?string
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?string $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }
