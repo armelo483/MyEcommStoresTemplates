@@ -17,22 +17,22 @@ class AppFixtures extends Fixture
         $imageHeight = 230;
         $imageWidth  = 300;
 
-        for ($i = 1; $i <= 7; $i++) {
-            $baseUrl = "https://picsum.photos/";
+        for ($i = 1; $i <= 2; $i++) {
+            $baseUrl = "https://source.unsplash.com/user/c_v_r";
             $rayon = new Rayon();
             $rayon->setName('Rayon_' . $i);
-            $rayon->setImage("$baseUrl/$imageWidth/$imageHeight");
+            $rayon->setImage("$baseUrl/$imageWidth.'x'.$imageHeight");
 
-            for ($j = 1; $j <= 5; $j++) {
+            for ($j = 1; $j <= 2; $j++) {
                 $category = new Categories();
                 $category->setName('Category_' . $j);
-                $category->setImage("$baseUrl/$imageWidth/$imageHeight");
+                $category->setImage("$baseUrl/$imageWidth.'x'.$imageHeight");
 
-                for ($k = 1; $k <= 10; $k++) {
+                for ($k = 1; $k <= 3; $k++) {
                     $product = new Product();
                     $product->setName('Product_' . $k);
                     $product->setPrice(mt_rand(40, 100));
-                    $product->setFeaturedImage("$baseUrl/$imageWidth/$imageHeight");
+                    $product->setFeaturedImage("$baseUrl/$imageWidth".'x'."$imageHeight");
                     $product->setIsFeatured($faker->boolean(30));
                     $product->setIsBestSeller($faker->boolean(2));
                     $product->setIsNewArrival($faker->boolean(20));

@@ -1,5 +1,6 @@
 {
     "require": {
-        "symfony/google-mailer": "^6.1"
+        "symfony/google-mailer": "^6.1",
+        "solarium/solarium": "~6.2"
     }
 }
